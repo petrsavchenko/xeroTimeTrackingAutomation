@@ -8,4 +8,4 @@ To fill your time entries:
     hours: 0.5,
     description: 'Scrum Daily Meeting e.g.'
 }]
-* press Enter to execute
+* Press Enter to execute
