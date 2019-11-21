@@ -1,7 +1,7 @@
 {
     const userId = 'fb272868-027b-4c7e-b813-b8769c608724'; // can be taken out from almost any requests in xero
-    const startDate = new Date("08/01/2019"); // start of period where time entries should be generated
-    const endDate = new Date("08/02/2019"); // end of period where time entries should be generated
+    const startDate = new Date("2019-11-04"); // start of period where time entries should be generated, format: yyyy-mm-dd
+    const endDate = new Date("2019-11-08"); // end of period where time entries should be generated, format: yyyy-mm-dd
 
     const yourTimeEntries = [{
         name: 'Other',
