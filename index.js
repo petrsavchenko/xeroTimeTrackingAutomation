@@ -1,7 +1,7 @@
 {
     const userId = 'fb272868-027b-4c7e-b813-b8769c608724'; // can be taken out from almost any requests in xero
-    const startDate = new Date("08/01/2019"); // start of period where time entries should be generated
-    const endDate = new Date("08/02/2019"); // end of period where time entries should be generated
+    const startDate = new Date("2019-04-06"); // start of period where time entries should be generated, format: yyyy-mm-dd
+    const endDate = new Date("2019-04-07"); // end of period where time entries should be generated, format: yyyy-mm-dd
 
     const yourTimeEntries = [{
         name: 'Other',
@@ -20,12 +20,17 @@
     }];
 
 
-    var url = 'https://projects.xero.com/api/projects/db637125-7cd6-4022-a56f-d991712f4cad/time';
-    const getTasksUrl = 'https://projects.xero.com/api/projects/db637125-7cd6-4022-a56f-d991712f4cad/tasks';
+    var url = 'https://go.xero.com/api/projects/projects/db637125-7cd6-4022-a56f-d991712f4cad/time';
+    const getTasksUrl = 'https://go.xero.com/api/projects/projects/db637125-7cd6-4022-a56f-d991712f4cad/tasks';
+
+    function getAuthorization() {
+        var tokenObj = JSON.parse(sessionStorage.getItem('oidc.user:https://identity.xero.com:xero_business_go'));
+        return {'authorization' : `Bearer ${tokenObj.access_token}`};
+    }
 
     // Get list of available task (other, feature development, consulting and so on)
     function getTasks() {
-        return fetch(getTasksUrl);
+        return fetch(getTasksUrl, {headers: getAuthorization()});
     }
 
     // pack data in way as xero api expects
@@ -52,7 +57,8 @@
             method: 'POST',
             body: JSON.stringify(dayTimeEntry),
             headers:{
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...getAuthorization()
             }
         })
     }
